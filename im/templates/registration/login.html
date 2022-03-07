@@ -1,0 +1,35 @@
+{% extends 'im/base.html' %}
+
+{% block title %}Ingresar{% endblock title %}
+
+{% block content %}
+    <h1>Ingresar su email y contraseña</h1>
+    {% if form.errors %}
+        <p>Usuario y/o Contraseña incorrectos. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post">
+        {% for field in form %}
+            <div>
+                {% csrf_token %}
+                {{ field.label }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit">Ingresar</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+        
+    </form>
+
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
+{% endblock content %}
+

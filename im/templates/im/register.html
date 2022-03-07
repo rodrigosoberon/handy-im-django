@@ -1,0 +1,19 @@
+{% extends 'im/base.html' %}
+
+{% block title %}
+Registro
+{% endblock title %}
+
+{% block content %}
+    <h1>Registrarse</h1>
+    <form method="post">
+        {% for field in form %}
+            <div>
+                {% csrf_token %}
+                {{ field.label }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit">Crear</button>
+    </form>
+{% endblock content %}
