@@ -3,5 +3,20 @@
 {% block title %}Ticket detail{% endblock  %}
 
 {% block content %}
-    <h1>{{ticket.title}}</h1>
+{% if user.is_authenticated %}
+    <div class="container">
+        <h1>
+            {{ticket.id}} - {{ticket.title}}
+        </h1>
+        <p>Description: {{ticket.description}}</p>
+        <p>Status: {{ticket.ticket_status}}</p>
+        <p>Priority: {{ticket.priority}}</p>
+        <p>Category: {{ticket.category}}</p>
+        <p>Assigned: {{ticket.assigned}}</p>
+        <p>Team: {{ticket.team}}</p>
+
+    </div>
+{% else %}
+    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+{% endif %}
 {% endblock  %}

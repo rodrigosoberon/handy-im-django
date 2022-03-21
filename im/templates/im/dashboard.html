@@ -5,9 +5,13 @@
 {% block content %}
     <h1>Dashboard</h1>
     {% if user.is_authenticated %}
-    <li>Vos sos: {{ user.get_username }}</li>
-    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-{% else %}
-    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+        <ul>
+            <li>Usuario loggeado: {{ user.get_username }}</li>
+            <li><a href="{% url 'tickets' %}">All tickets</a></li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+        </ul>
+
+    {% else %}
+        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
 {% endif %}
 {% endblock content %}

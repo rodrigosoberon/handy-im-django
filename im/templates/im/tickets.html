@@ -1,11 +1,43 @@
 {% extends 'im/base.html' %}
 
-{% block title %}All tickets{% endblock  %}
+{% block title %}All tickets{% endblock %}
 
 {% block content %}
-    <ul>
+{% if user.is_authenticated %}
+    <div class="container">
+    <h1>All tickets</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Category</th>
+            <th scope="col">Asigned</th>
+            <th scope="col">Team</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for ticket in tickets %}
-            <li><a href="{% url 'ticket-detail' ticket.id %}">{{ticket.id}} {{ticket.title}}</a></li>
+        <tr>
+            <th scope="row">
+            <a href="{% url 'ticket-detail' ticket.id %}">{{ticket.id}}</a>
+            </th>
+            <td>{{ticket.title}}</td>
+            <td>{{ticket.description}}</td>
+            <td>{{ticket.ticket_status}}</td>
+            <td>{{ticket.priority}}</td>
+            <td>{{ticket.category}}</td>
+            <td>{{ticket.assigned}}</td>
+            <td>{{ticket.team}}</td>
+        </tr>
         {% endfor %}
-    </ul>
-{% endblock  %}
+        </tbody>
+    </table>
+    </div>
+{% else %}
+    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+{% endif %}
+{% endblock %}
